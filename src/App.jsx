@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './App.css'
+import Main from './components/Main'
 
 function App() {
 
   return (
     <>
-     <h1>Web3 Wallet</h1>
+     <Main />
     </>
   )
 }
