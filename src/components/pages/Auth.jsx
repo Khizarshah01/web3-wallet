@@ -29,9 +29,11 @@ const Auth = () => {
         </button>
         </Link>
 
+        <Link to='/login'>
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
           Import Existing Wallet
         </button>
+        </Link>
       </div>
 
       <p className="text-sm text-gray-400 mt-8 italic">

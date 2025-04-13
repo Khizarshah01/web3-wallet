@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Create from "./pages/Create";
 import Auth from './pages/Auth'
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 const Main = () => {
   return (
     <div className='flex h-screen bg-blue-400 justify-center items-center'>
@@ -10,6 +12,8 @@ const Main = () => {
     <Routes>
       <Route path="/" element={<Auth />} />
       <Route path="/create" element={<Create />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   </BrowserRouter>
       
