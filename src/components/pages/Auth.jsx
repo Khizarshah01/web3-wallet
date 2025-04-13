@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TokenIcon } from '@web3icons/react';
 
 const Auth = () => {
@@ -22,9 +23,11 @@ const Auth = () => {
       </p>
 
       <div className="flex flex-col gap-4 w-full max-w-xs">
+        <Link to='/create'>
         <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
           Create New Wallet
         </button>
+        </Link>
 
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
           Import Existing Wallet
