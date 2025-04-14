@@ -8,7 +8,6 @@ const Login = () => {
   const handleLogin = () => {
     const mnemonic = mnemonicaarr.join(' ');
     if (mnemonicaarr.every(word => word.trim() !== '') && mnemonic.split(' ').length === 12) {
-      alert('Logged in with mnemonic!');
       localStorage.setItem("mnemonic", mnemonic);
       navigate('/dashboard'); // Change to your protected route
     } else {

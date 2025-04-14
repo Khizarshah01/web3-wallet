@@ -11,8 +11,6 @@ const FrontFoot = () => {
       <div className="relative">
         <select className="border border-gray-200 bg-gray-200 rounded-md px-4 py-2 text-sm">
           <option>Wallet 1</option>
-          <option>Wallet 2</option>
-          <option>Wallet 3</option>
         </select>
       </div>
 
