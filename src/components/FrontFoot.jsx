@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiSearch } from "react-icons/ci";
 
-const FrontFoot = () => {
+const FrontFoot = ({selectedWallet, setSelectedWallet}) => {
   const [showSearch, setShowSearch] = useState(false);
 
+  
   return (
     <div className='flex justify-between items-center px-6 py-4  rounded-xl'>
 
       {/* Wallet Dropdown */}
       <div className="relative">
-        <select className="border border-gray-200 bg-gray-200 rounded-md px-4 py-2 text-sm">
-          <option>Wallet 1</option>
+        <select className="border border-gray-200 bg-gray-200 rounded-md px-4 py-2 text-sm"
+        onChange={(e)=>setSelectedWallet(e.target.value)}
+        >
+         <option value="ethereum">Ethereum</option>
+          <option value="solana">Solana</option>
+          <option value="bitcoin">Bitcoin</option>
         </select>
       </div>
 
