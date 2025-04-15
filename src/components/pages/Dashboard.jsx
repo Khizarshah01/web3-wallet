@@ -4,13 +4,16 @@ import FrontFoot from '../FrontFoot';
 import * as bip39 from '@scure/bip39';
 import { HDKey } from '@scure/bip32';
 import { wordlist } from '@scure/bip39/wordlists/english';
-import { keccak_256 } from '@noble/hashes/sha3';
+import { keccak256 } from 'js-sha3';
+import secp256k1 from 'secp256k1';
 import { Buffer } from 'buffer';
+import { ethers } from 'ethers';
+import axios from 'axios';
 
 const defaultTokens = [
-  { name: 'Bitcoin', symbol: 'BTC', balance: 0.005, price: 66000 },
-  { name: 'Ethereum', symbol: 'ETH', balance: 0.8, price: 3300 },
-  { name: 'Polkadot', symbol: 'DOT', balance: 25, price: 7.2 },
+  { name: 'Bitcoin', symbol: 'BTC', balance: 0.0, price: 11111 },
+  { name: 'Ethereum', symbol: 'ETH', balance: 0.8, price: 1111 },
+  { name: 'Solana', symbol: 'SOL', balance: 0, price: 1111 },
 ];
 
 const Dashboard = () => {
@@ -26,6 +29,29 @@ const Dashboard = () => {
     0
   );
 
+  // Fetch Ethereum balance
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (!ethAddress) return;
+
+      try {
+        const provider = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`);
+        const balanceBigInt = await provider.getBalance(ethAddress);
+        const ethBalance = parseFloat(ethers.formatEther(balanceBigInt));
+        setTokens(prev =>
+          prev.map(token =>
+            token.symbol === 'ETH' ? { ...token, balance: ethBalance } : token
+          )
+        );
+      } catch (error) {
+        console.error('Error fetching ETH balance:', error);
+      }
+    };
+
+    fetchBalance();
+  }, [ethAddress]);
+
+  // Generate keys and fetch token prices
   useEffect(() => {
     const mnemonic = localStorage.getItem('mnemonic')?.trim();
 
@@ -35,48 +61,71 @@ const Dashboard = () => {
       return;
     }
 
-    const generateKeys = async () => {
+    const generateKeysAndFetchPrices = async () => {
       try {
-        const seed = await bip39.mnemonicToSeed(mnemonic);
-        if(selectedWallet=="ethereum"){
+        // Fetch current prices for Ethereum, Bitcoin, and Solana
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
+          params: {
+            ids: 'ethereum,bitcoin,solana',  // Ethereum, Bitcoin, Solana prices
+            vs_currencies: 'usd',           // Price in USD
+          },
+        });
 
+        const ethPrice = response.data.ethereum.usd;
+        const btcPrice = response.data.bitcoin.usd;
+        const solPrice = response.data.solana.usd;
+
+        setTokens(prevTokens =>
+          prevTokens.map(token => {
+            if (token.symbol === 'ETH') {
+              return { ...token, price: ethPrice };
+            }
+            if (token.symbol === 'BTC') {
+              return { ...token, price: btcPrice };
+            }
+            if (token.symbol === 'SOL') {
+              return { ...token, price: solPrice };
+            }
+            return token;
+          })
+        );
+
+        // Generate wallet keys and address
+        const seed = await bip39.mnemonicToSeed(mnemonic);
+
+        if (selectedWallet === 'ethereum') {
           const root = HDKey.fromMasterSeed(seed);
           const child = root.derive("m/44'/60'/0'/0/0");
-          
+
           const privateKeyHex = Buffer.from(child.privateKey).toString('hex');
           const publicKeyHex = Buffer.from(child.publicKey).toString('hex');
-          
-          setPrivateKey("0x"+privateKeyHex);
-          setPublicKey("0x"+publicKeyHex);
-          
-          const publicKeyBuffer = Buffer.from(publicKeyHex, 'hex');
-          console.log(publicKeyBuffer);
-          const hash = keccak_256(publicKeyBuffer.subarray(1)); // skip the 0x04 prefix
-          const address = '0x' + Buffer.from(hash.slice(-20)).toString('hex');
-          setEthAddress(address);
-        } else if(selectedWallet=="bitcoin"){
-          console.log("Bitcoin");
-        } else if(selectedWallet=="solana"){
-          console.log("Solana");
-        }
 
-        // console.log('Private Key:', privateKeyHex);
-        // console.log('Public Key:', publicKeyHex);
-        // console.log('Address:', address);
+          setPrivateKey(privateKeyHex);
+          setPublicKey(publicKeyHex);
+
+          const privateKeyBuffer = child.privateKey;
+          const publicKeyBuffer = secp256k1.publicKeyCreate(privateKeyBuffer, false); // false = uncompressed
+          const hash = keccak256(publicKeyBuffer.slice(1));
+          const ethAddress = "0x" + hash.slice(-40);
+          setEthAddress(ethAddress);
+        } else if (selectedWallet === 'bitcoin') {
+          console.log("Bitcoin wallet selected");
+          // Implement Bitcoin wallet key generation logic if needed
+        } else if (selectedWallet === 'solana') {
+          console.log("Solana wallet selected");
+          // Implement Solana wallet key generation logic if needed
+        }
       } catch (error) {
-        console.error('Error generating keys:', error);
+        console.error('Error generating keys or fetching prices:', error);
       }
     };
 
-    generateKeys();
-  }, [navigate,selectedWallet]);
+    generateKeysAndFetchPrices();
+  }, [navigate, selectedWallet]);
 
   return (
     <div className="bg-gray-100 min-h-screen">
-  <FrontFoot
-  selectedWallet={selectedWallet}
-  setSelectedWallet={setSelectedWallet}
-/>
+      <FrontFoot selectedWallet={selectedWallet} setSelectedWallet={setSelectedWallet} />
 
       <div className="max-w-4xl mx-auto px-4 py-6">
         <div className="text-gray-800 text-3xl font-semibold mb-6">
