@@ -3,7 +3,7 @@ import * as bip39 from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english'; // there is lot of language 2048 word list available i chose english
 import { useNavigate } from "react-router-dom";
 
-const Create = () => {
+const CreateWallet = () => {
   const [mnemonic, setMnemonic] = useState("");
   const [mnemonicarr, setMnemonicarr] = useState([]);
   const [seedHex, setSeedHex] = useState("");
@@ -12,9 +12,11 @@ const Create = () => {
   useEffect(() => {
     const generatedMnemonic = bip39.generateMnemonic(wordlist); // createing memonic means just a choose a 12 words in 2048
     setMnemonic(generatedMnemonic);
+
+    // NOt correct 
     const seed = bip39.mnemonicToSeedSync(generatedMnemonic); // convertin unint8 from array
     setSeedHex(seed.toString('hex')); // converting into hecxa
-    // the useEffect run two time fix later ::::{
+    // the useEffect run two time >>fix later ::::{
     const wordArr = generatedMnemonic.split(" ");
     setMnemonicarr(wordArr);
   }, []);
@@ -62,14 +64,14 @@ const Create = () => {
 </div>
 <div className="mt-6">
         <button
-          onClick={() => navigate("/login")} // 👈 Change "/login" to your actual login/home route
+          onClick={() => navigate("/set-password", {state: { mnemonic }})} // 👈 Change "/login" to your actual login/home route
           className="bg-indigo-500 text-white px-5 py-2 rounded-md shadow hover:bg-indigo-600 transition"
         >
-          Back to Login
+          Continue
         </button>
       </div>
         </div >
   );
 };
 
-export default Create;
+export default CreateWallet;
