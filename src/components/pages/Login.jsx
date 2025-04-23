@@ -8,7 +8,7 @@ const Login = () => {
   const handleLogin = () => {
     const mnemonic = mnemonicaarr.join(' ');
     if (mnemonicaarr.every(word => word.trim() !== '') && mnemonic.split(' ').length === 12) {
-      localStorage.setItem("mnemonic", mnemonic);
+
       navigate('/dashboard'); // Change to your protected route
     } else {
       alert('Please enter all 12 words of the mnemonic phrase.');
