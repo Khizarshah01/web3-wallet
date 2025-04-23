@@ -20,28 +20,20 @@ const Auth = () => {
       const decrypted = CryptoJS.AES.decrypt(encrypted, password).toString(CryptoJS.enc.Utf8);
 
       if (bip39.validateMnemonic(decrypted, wordlist)) {
-        console.log("✅ Valid mnemonic");
+        console.log("Valid mnemonic");
         
         // STEP 1: Derive public addresses
         console.log(decrypted);
         const addresses = await getAllCoinAddresses(decrypted);
-        //   const seed = await bip39.mnemonicToSeed(decrypted);
-        //   console.log(seed);
-        //   const root = HDKey.fromMasterSeed(seed); // unit8Array Expected
-        //   const child = root.derive("m/44'/60'/0'/0/0");
-
-        //   const publicKeyHex = Buffer.from(child.publicKey).toString('hex');
-        //   console.log(publicKeyHex);
-
-      
-        // STEP 2: Store in localStorage
-        // localStorage.setItem("wallet_logged_in", "true");
-        // localStorage.setItem("wallet_addresses", JSON.stringify(addresses));
+       
+        localStorage.setItem("wallet_logged_in", "true");
+        localStorage.setItem("wallet_addresses", JSON.stringify(addresses));
+        // console.log(localStorage.getItem("wallet_addresses"));
         
         // STEP 3: Navigate to dashboard
         toast.success("Login successful!", { position: "top-center" });
-        console.log(addresses);
-        // navigate("/dashboard");
+        // console.log(addresses);
+        navigate("/dashboard");
       }
        else {  
         toast.error("Invalid password ^M", { position: "top-center" }); // ^M encrypted mneomonic
