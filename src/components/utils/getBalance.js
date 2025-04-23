@@ -15,9 +15,26 @@ export const getBalance = async (symbol, addressObj) => {
         return response.data / 1e8;
       }
       case 'SOL': {
-        const connection = new Connection(clusterApiUrl('mainnet-beta'), 'confirmed');
-        const solBalance = await connection.getBalance(new PublicKey(addressObj.sol));
-        return solBalance / 1e9;
+        const options = {
+          method: 'POST',
+          url: `https://solana-mainnet.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`,
+          headers: { accept: 'application/json', 'content-type': 'application/json' },
+          data: {
+            id: 1,
+            jsonrpc: '2.0',
+            method: 'getBalance',
+            params: [addressObj.sol]  
+          }
+        };
+      
+        try {
+          const response = await axios.request(options);
+          const lamports = response.data.result.value;
+          return lamports / 1e9; 
+        } catch (error) {
+          console.error("Solana balance error:", error);
+          return 0;
+        }
       }
       default:
         return 0;
