@@ -4,7 +4,7 @@ import CryptoJS from 'crypto-js';
 import { wordlist } from '@scure/bip39/wordlists/english';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router';
-import { getAllCoinAddresses } from '../utils/crypto';
+import { getAllCoinAddresses } from '../components/utils/crypto';
 import 'react-toastify/dist/ReactToastify.css';
 import { RiResetRightFill } from "react-icons/ri";
 
