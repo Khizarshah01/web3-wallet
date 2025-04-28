@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import axios from 'axios';
-import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
+// import { Connection, clusterApiUrl, PublicKey } from '@solana/web3.js';
 
 export const getBalance = async (symbol, addressObj) => {
   try {
