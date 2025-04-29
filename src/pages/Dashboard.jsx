@@ -6,12 +6,11 @@ import { allSupportedTokens } from '../data/tokenList';
 import { getBalance } from '../components/utils/getBalance';
 import ManageTokens from '../components/ManageTokens';
 import { getUserVisibleTokens, setUserVisibleTokens } from '../components/utils/storage';
-import { Eye, Copy, ArrowUpRight, ArrowDownLeft} from 'lucide-react';
+import { Eye, Copy, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { TokenIcon } from '@web3icons/react';
 import { Plus, RefreshCw, Send, ArrowDown } from 'lucide-react';
 import Qrcode from '../components/Qrcode';
-import Sidebar from '../components/Sidebar';
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import MarketChart from '../components/MarketChart';
 
 
 
@@ -23,14 +22,6 @@ const Dashboard = () => {
   const [address, setAddress] = useState({});
   const [selectedWallet, setSelectedWallet] = useState('ethereum');
   const navigate = useNavigate();
-
-  const dummyData = [
-    { name: 'Jan', price: 400 },
-    { name: 'Feb', price: 500 },
-    { name: 'Mar', price: 470 },
-    { name: 'Apr', price: 520 },
-    { name: 'May', price: 600 },
-  ];
 
   const totalBalance = tokens.reduce(
     (sum, token) => sum + token.balance * token.price,
@@ -87,13 +78,11 @@ const Dashboard = () => {
 
   return (
     <div className="bg-neutral-950 min-h-screen text-gray-100">
-      {/* <FrontFoot selectedWallet={selectedWallet} setSelectedWallet={setSelectedWallet} /> */}
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6">
 
-          {/* Left Cards */}
           <div className="flex flex-col gap-6">
             {/* Total Balance Card */}
             <div className="bg-neutral-900 p-6 rounded-2xl shadow-md flex flex-col justify-between hover:shadow-lg transition h-full">
@@ -143,18 +132,8 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Market Chart Right Side */}
-          <div className="md:col-span-2 bg-neutral-900 p-6 rounded-2xl shadow-md hover:shadow-lg transition flex flex-col justify-between h-full">
-            <h3 className="text-lg font-semibold text-gray-300 mb-4">Market Overview</h3>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={dummyData}>
-                <XAxis dataKey="name" stroke="#888888" />
-                <YAxis stroke="#888888" />
-                <Tooltip />
-                <Line type="monotone" dataKey="price" stroke="#10b981" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          {/* Market Chart */}
+          <MarketChart coinId={'bitcoin'} />
 
         </div>
 
@@ -191,27 +170,27 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-  {tokens.map((token, index) => (
-    <tr
-      key={index}
-      onClick={() => navigate(`/token/${token.name.toLowerCase()}`)}
-      className="cursor-pointer border-b border-gray-700 hover:bg-gray-700/30 transition"
-    >
-      <td className="py-3 px-4 flex items-center gap-3">
-        <TokenIcon symbol={token.symbol} variant="branded" size="32" />
-        <div>
-          <div className="font-semibold">{token.symbol}</div>
-          <div className="text-xs text-gray-400">{token.name}</div>
-        </div>
-      </td>
-      <td className="py-3 px-4 text-right">${token.price.toFixed(2)}</td>
-      <td className="py-3 px-4 text-right">{token.balance.toFixed(4)}</td>
-      <td className="py-3 px-4 text-right font-semibold">
-        ${(token.balance * token.price).toFixed(2)}
-      </td>
-    </tr>
-  ))}
-</tbody>
+                  {tokens.map((token, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => navigate(`/token/${token.name.toLowerCase()}`)}
+                      className="cursor-pointer border-b border-gray-700 hover:bg-gray-700/30 transition"
+                    >
+                      <td className="py-3 px-4 flex items-center gap-3">
+                        <TokenIcon symbol={token.symbol} variant="branded" size="32" />
+                        <div>
+                          <div className="font-semibold">{token.symbol}</div>
+                          <div className="text-xs text-gray-400">{token.name}</div>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-right">${token.price.toFixed(2)}</td>
+                      <td className="py-3 px-4 text-right">{token.balance.toFixed(4)}</td>
+                      <td className="py-3 px-4 text-right font-semibold">
+                        ${(token.balance * token.price).toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
 
               </table>
             </div>
