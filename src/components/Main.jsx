@@ -9,6 +9,8 @@ import PrivateRoute from "./PrivateRoutes";
 import Auth from "../pages/Auth";
 import Layout from "./Layout";
 import TokenDetails from "../pages/TokenDetails"
+import Send from "../pages/Send";
+import Receive from "../pages/Receive";
 
 const Main = () => {
   return (
@@ -31,10 +33,26 @@ const Main = () => {
             }
           />
           <Route 
-            path="/token/:id"
+            path="/token/:symbol"
             element={
               <PrivateRoute>
                 <TokenDetails />
+              </PrivateRoute>
+            }
+          />
+           <Route 
+            path="/send"
+            element={
+              <PrivateRoute>
+               <Send />
+              </PrivateRoute>
+            }
+          />
+            <Route 
+            path="/receive/:symbol"
+            element={
+              <PrivateRoute>
+               <Receive />
               </PrivateRoute>
             }
           />
