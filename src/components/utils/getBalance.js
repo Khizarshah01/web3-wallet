@@ -6,7 +6,7 @@ export const getBalance = async (symbol, addressObj) => {
   try {
     switch (symbol) {
       case 'ETH': {
-        const provider = new ethers.JsonRpcProvider(`https://eth-mainnet.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`);
+        const provider = new ethers.JsonRpcProvider(`https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`);
         const balanceBigInt = await provider.getBalance(addressObj.eth);
         return parseFloat(ethers.formatEther(balanceBigInt));
       }
@@ -17,7 +17,7 @@ export const getBalance = async (symbol, addressObj) => {
       case 'SOL': {
         const options = {
           method: 'POST',
-          url: `https://solana-mainnet.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`,
+          url: `https://solana-devnet.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_API_KEY}`,
           headers: { accept: 'application/json', 'content-type': 'application/json' },
           data: {
             id: 1,
