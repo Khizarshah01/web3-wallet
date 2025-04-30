@@ -18,24 +18,29 @@ const Landing = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white flex flex-col">
-      <header className="py-6 px-8">
-        <div className="flex items-center space-x-2">
-          <Wallet className="h-8 w-8 text-primary-400" />
-          <h1 className="text-2xl font-bold">Web3-Wallet</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white flex flex-col">
+      <header className="py-8 px-6 border-b border-gray-800">
+        <div className="flex items-center space-x-3">
+          <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+            <Wallet className="h-6 w-6 text-white" />
+          </div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-300 to-purple-400 bg-clip-text text-transparent">
+            Web3 Wallet
+          </h1>
         </div>
       </header>
 
       <main className="flex-grow flex flex-col items-center justify-center p-6">
         <div className={`transform transition-transform duration-1000 ${
           animationLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
-          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-6">
-            Welcome to Web3-Wallet
+        } text-center mb-12`}>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-indigo-300 to-purple-400 bg-clip-text text-transparent">
+              Your Gateway to Web3
+            </span>
           </h2>
-          <p className="text-xl text-center text-neutral-400 max-w-md mx-auto mb-12">
-            A safer way to hold Bitcoin. 
-            Your secure gateway to crypto assets — fast, private & secure.
+          <p className="text-xl text-gray-400 max-w-xl mx-auto">
+            A secure, non-custodial wallet for managing your crypto assets with complete control and privacy.
           </p>
         </div>
 
@@ -46,17 +51,17 @@ const Landing = () => {
             }`}
             style={{ transitionDelay: '200ms' }}
           >
-            <div className="flex flex-col items-center bg-neutral-900 rounded-lg p-8 shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="rounded-full p-4 bg-gradient-to-br from-green-400 to-blue-500 mb-6">
-                <Wallet className="h-8 w-8" />
+            <div className="flex flex-col items-center bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl hover:shadow-indigo-500/10 transition-all">
+              <div className="rounded-full p-4 bg-gradient-to-br from-emerald-400 to-teal-500 mb-6 shadow-lg">
+                <Wallet className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Create New Wallet</h3>
-              <p className="text-neutral-400 text-center mb-6">
+              <h3 className="text-xl font-semibold mb-2 text-white">Create New Wallet</h3>
+              <p className="text-gray-400 text-center mb-6">
                 Generate a new secure wallet with a recovery phrase.
               </p>
               <button 
                 onClick={() => navigate('/create')}
-                className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 w-full"
+                className="w-full px-6 py-3 rounded-xl font-medium bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/20 transition-all"
               >
                 Create Wallet
               </button>
@@ -69,17 +74,17 @@ const Landing = () => {
             }`}
             style={{ transitionDelay: '400ms' }}
           >
-            <div className="flex flex-col items-center bg-neutral-900 rounded-lg p-8 shadow-lg hover:scale-105 transition-transform duration-300">
-              <div className="rounded-full p-4 bg-gradient-to-br from-purple-400 to-pink-500 mb-6">
-                <Import className="h-8 w-8" />
+            <div className="flex flex-col items-center bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl hover:shadow-indigo-500/10 transition-all">
+              <div className="rounded-full p-4 bg-gradient-to-br from-indigo-400 to-purple-500 mb-6 shadow-lg">
+                <Import className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Import Existing Wallet</h3>
-              <p className="text-neutral-400 text-center mb-6">
+              <h3 className="text-xl font-semibold mb-2 text-white">Import Wallet</h3>
+              <p className="text-gray-400 text-center mb-6">
                 Restore your wallet using a recovery phrase.
               </p>
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 w-full"
+                className="w-full px-6 py-3 rounded-xl font-medium bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg hover:shadow-indigo-500/20 transition-all"
               >
                 Import Wallet
               </button>
@@ -88,8 +93,8 @@ const Landing = () => {
         </div>
       </main>
 
-      <footer className="py-4 px-8 text-center text-neutral-500">
-        <p>Web3-Wallet © 2025</p>
+      <footer className="py-6 px-8 text-center text-gray-500 border-t border-gray-800">
+        <p className="text-sm">Web3 Wallet © {new Date().getFullYear()} - Your keys, your crypto</p>
       </footer>
     </div>
   );
