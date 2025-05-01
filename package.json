@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "postbuild": "remix build",
-    "preview": "vite preview",
-    "start": "remix-serve build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@noble/ed25519": "^2.2.3",
