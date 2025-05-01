@@ -11,9 +11,9 @@ A secure, non-custodial multi-chain crypto wallet built from scratch — no Meta
 
   * 🌐 Testnet / Devnet Support
 
-    - Ethereum: Goerli & Sepolia
+    - Ethereum: Sepolia
 
-    - Solana: Devnet / Testnet
+    - Solana: Devnet
 
   * 📦 Manual Key Management
     No third-party wallet providers (MetaMask/Phantom). Full control over private keys.
