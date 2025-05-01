@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "postbuild": "remix build",
+    "preview": "vite preview",
+    "start": "remix-serve build"
   },
   "dependencies": {
     "@noble/ed25519": "^2.2.3",
@@ -50,6 +51,7 @@
     "tiny-secp256k1": "^2.2.3",
     "tweetnacl": "^1.0.3",
     "vite-plugin-node-polyfills": "^0.23.0",
+    "vite-plugin-top-level-await": "^1.5.0",
     "zustand": "^5.0.3",
     "zxcvbn": "^4.4.2"
   },
