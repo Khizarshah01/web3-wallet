@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Wallet, Import } from 'lucide-react';
+import { CIcon } from '@coreui/icons-react';
+import { cilWallet, cilArrowThickFromTop } from '@coreui/icons';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Landing = () => {
       <header className="py-8 px-6 border-b border-gray-800">
         <div className="flex items-center space-x-3">
           <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-            <Wallet className="h-6 w-6 text-white" />
+            <CIcon icon={cilWallet} className="h-6 w-6 text-white" />
           </div>
           <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-300 to-purple-400 bg-clip-text text-transparent">
             Web3 Wallet
@@ -53,7 +54,7 @@ const Landing = () => {
           >
             <div className="flex flex-col items-center bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl hover:shadow-indigo-500/10 transition-all">
               <div className="rounded-full p-4 bg-gradient-to-br from-emerald-400 to-teal-500 mb-6 shadow-lg">
-                <Wallet className="h-8 w-8 text-white" />
+                <CIcon icon={cilWallet}  className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Create New Wallet</h3>
               <p className="text-gray-400 text-center mb-6">
@@ -76,7 +77,7 @@ const Landing = () => {
           >
             <div className="flex flex-col items-center bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 shadow-2xl hover:shadow-indigo-500/10 transition-all">
               <div className="rounded-full p-4 bg-gradient-to-br from-indigo-400 to-purple-500 mb-6 shadow-lg">
-                <Import className="h-8 w-8 text-white" />
+                <CIcon icon={cilArrowThickFromTop} className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Import Wallet</h3>
               <p className="text-gray-400 text-center mb-6">
